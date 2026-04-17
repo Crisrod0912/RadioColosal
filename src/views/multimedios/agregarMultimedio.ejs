@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<%- include('../layout/multimedios/agregarMultimedioHead') %>
+
+    <body class="min-vh-100 d-flex flex-column">
+
+        <div class="container">
+            <h1>Agregar Nuevo Multimedia</h1>
+
+            <% if (error) { %>
+                <div class="alert-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <%= error %>
+                </div>
+                <% } %>
+
+                    <form action="/multimedios/agregarMultimedio" method="POST">
+                        <div class="form-group">
+                            <label for="titulo">Título del Multimedia</label>
+                            <input type="text" id="titulo" name="titulo" value="<%= multimedio.titulo || '' %>" required placeholder="Ej: Entrevista con el alcalde">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipo">Tipo de Multimedia</label>
+                            <select id="tipo" name="tipo" required>
+                                <% tiposMultimedia.forEach(tipo=> { %>
+                                    <option value="<%= tipo %>" <%=multimedio.tipo===tipo ? 'selected' : '' %>>
+                                        <%= tipo %>
+                                    </option>
+                                    <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea id="descripcion" name="descripcion" required placeholder="Describe el contenido del multimedia..."><%= multimedio.descripcion || '' %></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dia">Día de Publicación</label>
+                            <select id="dia" name="dia" required>
+                                <% diasSemana.forEach(dia=> { %>
+                                    <option value="<%= dia %>" <%=multimedio.dia===dia ? 'selected' : '' %>>
+                                        <%= dia %>
+                                    </option>
+                                    <% }); %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Horario</label>
+                            <div class="horario-container">
+                                <div class="time-input-group">
+                                    <i class="fas fa-clock"></i>
+                                    <input type="time" id="horario.inicio" name="horario.inicio" value="<%= multimedio.horario.inicio || '' %>" required>
+                                </div>
+                                <div class="time-input-group">
+                                    <i class="fas fa-clock"></i>
+                                    <input type="time" id="horario.fin" name="horario.fin" value="<%= multimedio.horario.fin || '' %>" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> 
+                                Guardar Multimedia
+                            </button>
+                            <a href="/multimedios" class="btn btn-outline">
+                                <i class="fas fa-times"></i> 
+                                Cancelar
+                            </a>
+                        </div>
+                    </form>
+        </div>
+
+        <%- include('../layout/multimedios/agregarMultimedioScripts') %>
+
+    </body>
+
+</html>

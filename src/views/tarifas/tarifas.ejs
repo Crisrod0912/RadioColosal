@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<%- include('../layout/tarifas/tarifaHead') %>
+
+    <body class="min-vh-100 d-flex flex-column">
+
+        <div class="container">
+            <h1>Tarifas Disponibles</h1>
+
+            <div class="nav-buttons">
+                <a href="/tarifas/agregarTarifa" class="btn btn-add">Agregar Tarifa</a>
+                <a href="/" class="btn btn-home">Volver al Inicio</a>
+            </div>
+
+            <% if (tarifas.length> 0) { %>
+                <% tiposTarifa.forEach(tipo=> { %>
+                    <% const tarifasTipo=tarifas.filter(t=> t.tipo === tipo); %>
+                        <% if (tarifasTipo.length> 0) { %>
+                            <h2>
+                                <%= tipo %>
+                            </h2>
+
+                            <% tarifasTipo.forEach(tarifa=> { %>
+                                <div class="tarifa-card">
+                                    <div class="tarifa-header">
+                                        <span class="tarifa-tipo">
+                                            <%= tarifa.cobertura %> - <%= tarifa.tiempo %>
+                                        </span>
+                                        <span class="tarifa-precio">$<%= tarifa.precio.toFixed(2) %></span>
+                                    </div>
+
+                                    <div class="actions">
+                                        <a href="/tarifas/editarTarifa/<%= tarifa._id %>" class="btn btn-edit">Editar</a>
+                                        <form action="/tarifas/<%= tarifa._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                            <button type="submit" class="btn btn-delete" onclick="return confirm('¿Estás seguro de que deseas eliminar esta tarifa?')">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <% }); %>
+                                    <% } %>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <div class="empty-state">
+                                                    <p>No hay tarifas registradas actualmente.</p>
+                                                    <p>¡Comienza agregando una nueva tarifa!</p>
+                                                </div>
+                                                <% } %>
+        </div>
+
+        <%- include('../layout/tarifas/tarifaScripts') %>
+
+    </body>
+
+</html>

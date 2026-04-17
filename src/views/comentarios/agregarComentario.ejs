@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<%- include('../layout/comentarios/agregarComentarioHead') %>
+
+    <body class="min-vh-100 d-flex flex-column">
+
+        <div class="container">
+            <h1>Agregar Nuevo Comentario</h1>
+
+            <% if (error) { %>
+                <div class="alert-error">
+                    <%= error %>
+                </div>
+                <% } %>
+
+                    <form action="/comentarios/agregarComentario" method="POST">
+
+                        <div class="form-group">
+                            <label class="form-label">Nombre del Oyente:</label>
+                            <input class="form-input" type="text" name="nombreOyente" value="<%= comentario.nombreOyente %>" list="oyentesList" required>
+                            <datalist id="oyentesList">
+                                <% oyentes.forEach(oyente=> { %>
+                                    <option value="<%= oyente.nombre %>">
+                                        <% }); %>
+                            </datalist>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Nombre del Programa:</label>
+                            <input class="form-input" type="text" name="nombrePrograma" value="<%= comentario.nombrePrograma %>" list="programasList" required>
+                            <datalist id="programasList">
+                                <% programas.forEach(programa=> { %>
+                                    <option value="<%= programa.nombre %>">
+                                        <% }); %>
+                            </datalist>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Comentario:</label>
+                            <textarea class="form-textarea" name="comentario" required><%= comentario.comentario %></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Calificación (1-5):</label>
+                            <input class="form-input" type="number" name="calificacion" min="1" max="5" value="<%= comentario.calificacion %>" required>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="form-button">Guardar</button>
+                            <a href="/comentarios" class="form-button cancel">Cancelar</a>
+                        </div>
+                    </form>
+        </div>
+
+        <%- include('../layout/comentarios/agregarComentarioScripts') %>
+
+    </body>
+
+</html>

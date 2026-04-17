@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<%- include('../layout/clientes/clienteHead') %>
+
+    <body class="min-vh-100 d-flex flex-column">
+
+        <div class="container">
+            <h1>Clientes Registrados</h1>
+
+            <div class="header-actions">
+                <a href="/" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i>
+                    Volver al Inicio
+                </a>
+                <a href="/clientes/agregarCliente" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Agregar Cliente
+                </a>
+            </div>
+
+            <% if (typeof error !=='undefined' ) { %>
+                <div class="alert alert-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <%= error==='delete_error' ? 'Error al eliminar el cliente' : error %>
+                </div>
+                <% } %>
+
+                    <% if (typeof success !=='undefined' ) { %>
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle"></i>
+                            Cliente eliminado correctamente
+                        </div>
+                        <% } %>
+
+                            <% if (clientes.length> 0) { %>
+                                <div class="clients-grid">
+                                    <% clientes.forEach(cliente=> { %>
+                                        <div class="client-card">
+                                            <div class="client-header">
+                                                <h3 class="client-name">
+                                                    <%= cliente.nombre %>
+                                                </h3>
+                                                <span class="client-type">
+                                                    <%= cliente.tipo %>
+                                                </span>
+                                            </div>
+
+                                            <div class="client-body">
+                                                <div class="client-info">
+                                                    <p><i class="fas fa-phone"></i>
+                                                        <%= cliente.telefono %>
+                                                    </p>
+                                                    <p><i class="fas fa-globe"></i>
+                                                        <a href="<%= cliente.sitio_web %>" target="_blank">
+                                                            <%= cliente.sitio_web %>
+                                                        </a>
+                                                    </p>
+                                                </div>
+
+                                                <% if (cliente.red_social && (cliente.red_social.facebook || cliente.red_social.x || cliente.red_social.instagram || cliente.red_social.youtube)) { %>
+                                                    <div class="social-links">
+                                                        <h4>Redes Sociales</h4>
+                                                        <div class="social-list">
+                                                            <% if (cliente.red_social.facebook) { %>
+                                                                <div class="social-item">
+                                                                    <a href="<%= cliente.red_social.facebook %>" target="_blank">
+                                                                        <i class="fab fa-facebook-f"></i> 
+                                                                        Facebook
+                                                                    </a>
+                                                                </div>
+                                                                <% } %>
+
+                                                                    <% if (cliente.red_social.x) { %>
+                                                                        <div class="social-item">
+                                                                            <a href="<%= cliente.red_social.x %>" target="_blank">
+                                                                                <i class="fab fa-twitter"></i> 
+                                                                                Twitter
+                                                                            </a>
+                                                                        </div>
+                                                                        <% } %>
+
+                                                                            <% if (cliente.red_social.instagram) { %>
+                                                                                <div class="social-item">
+                                                                                    <a href="<%= cliente.red_social.instagram %>" target="_blank">
+                                                                                        <i class="fab fa-instagram"></i>
+                                                                                        Instagram
+                                                                                    </a>
+                                                                                </div>
+                                                                                <% } %>
+
+                                                                                    <% if (cliente.red_social.youtube) {
+                                                                                        %>
+                                                                                        <div class="social-item">
+                                                                                            <a href="<%= cliente.red_social.youtube %>" target="_blank">
+                                                                                                <i class="fab fa-youtube"></i>
+                                                                                                YouTube
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <% } %>
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+                                            </div>
+
+                                            <div class="client-actions">
+                                                <a href="/clientes/editarCliente/<%= cliente._id %>" class="btn btn-outline">
+                                                    <i class="fas fa-edit"></i>
+                                                    Editar
+                                                </a>
+                                                <form action="/clientes/<%= cliente._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este cliente?')">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                        Eliminar
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                                <% } else { %>
+                                    <div class="empty-state">
+                                        <i class="fas fa-user-friends"></i>
+                                        <h3>No hay clientes registrados</h3>
+                                        <p>Aún no has agregado ningún cliente a tu base de datos</p>
+                                        <a href="/clientes/agregarCliente" class="btn btn-primary" style="margin-top: 20px;">
+                                            <i class="fas fa-plus"></i>
+                                            Agregar Primer Cliente
+                                        </a>
+                                    </div>
+                                    <% } %>
+        </div>
+
+        <%- include('../layout/clientes/clienteScripts') %>
+
+    </body>
+
+</html>

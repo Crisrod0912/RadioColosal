@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<%- include('../layout/comentarios/comentarioHead') %>
+
+    <body class="min-vh-100 d-flex flex-column">
+
+        <div class="container">
+            <h1>Comentarios Publicados</h1>
+            <br>
+
+            <div class="header-actions">
+                <a href="/" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> 
+                    Volver al Inicio
+                </a>
+                <a href="/comentarios/agregarComentario" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> 
+                    Agregar Comentario
+                </a>
+            </div>
+            <br>
+
+            <% if (typeof error !=='undefined' ) { %>
+                <div class="alert alert-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <%= error %>
+                </div>
+                <br>
+                <% } %>
+
+                    <% if (typeof success !=='undefined' ) { %>
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle"></i>
+                            <%= success %>
+                        </div>
+                        <br>
+                        <% } %>
+
+                            <% if (comentarios.length> 0) { %>
+                                <div class="comments-grid">
+                                    <% comentarios.forEach(comentario=> { %>
+                                        <div class="comment-card">
+                                            <div class="comment-header">
+                                                <h3 class="comment-name">
+                                                    <%= comentario.idOyente ? comentario.idOyente.nombre : 'Oyente desconocido' %>
+                                                </h3>
+                                                <span class="comment-nom">
+                                                    <%= comentario.idPrograma ? comentario.idPrograma.nombre : 'Programa desconocido' %>
+                                                </span>
+                                            </div>
+
+                                            <div class="comment-body">
+                                                <p><strong>Comentario:</strong>
+                                                    <%= comentario.comentario %>
+                                                </p>
+
+                                                <p><strong>Calificación:</strong>
+                                                    <span style="color: #f4c542; font-size: 1.2em;">
+                                                        <%= '★' .repeat(comentario.calificacion) %>
+                                                    </span>
+                                                </p>
+
+                                                <p><strong>Fecha:</strong>
+                                                    <%= new Date(comentario.fecha).toLocaleDateString() %>
+                                                </p>
+                                            </div>
+
+                                            <div class="comment-actions">
+                                                <a href="/comentarios/editarComentario/<%= comentario._id %>" class="btn btn-outline">
+                                                    <i class="fas fa-edit"></i> 
+                                                    Editar
+                                                </a>
+                                                <form action="/comentarios/<%= comentario._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este comentario?')">
+                                                        <i class="fas fa-trash-alt"></i> 
+                                                        Eliminar
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <% }); %>
+                                </div>
+                                <% } else { %>
+                                    <div class="empty-state">
+                                        <i class="fas fa-comment-slash fa-3x"></i>
+                                        <h3>No hay comentarios registrados</h3>
+                                        <p>Aún no se ha dejado ningún comentario</p>
+                                        <a href="/comentarios/agregarComentario" class="btn btn-primary" style="margin-top: 20px;">
+                                            <i class="fas fa-plus"></i> Agregar Primer Comentario
+                                        </a>
+                                    </div>
+                                    <% } %>
+        </div>
+
+        <%- include('../layout/comentarios/comentarioScripts') %>
+
+    </body>
+
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<%- include('../layout/locutores/locutorHead') %>
+
+    <body class="min-vh-100 d-flex flex-column">
+
+        <div class="container">
+            <h1>Locutores Registrados</h1>
+            <br>
+
+            <div class="header-actions">
+                <a href="/" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> 
+                    Volver al Inicio
+                </a>
+                <a href="/locutores/agregarLocutor" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Agregar Locutor
+                </a>
+            </div>
+            <br>
+
+            <% if (typeof error !=='undefined' ) { %>
+                <div class="alert alert-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <%= error %>
+                </div>
+                <br>
+                <% } %>
+
+                    <% if (typeof success !=='undefined' ) { %>
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle"></i>
+                            <%= success %>
+                        </div>
+                        <br>
+                        <% } %>
+
+                            <% if (locutores.length> 0) { %>
+                                <div class="locuts-grid">
+                                    <% locutores.forEach(locutor=> { %>
+                                        <div class="locut-card">
+                                            <div class="locut-header">
+                                                <h3 class="locut-name">
+                                                    <%= locutor.nombre %>
+                                                </h3>
+                                                <span class="locut-type">Locutor</span>
+                                            </div>
+
+                                            <div class="locut-body">
+                                                <% if (locutor.redSocial && (locutor.redSocial.facebook || locutor.redSocial.instagram)) { %>
+                                                    <div class="social-links">
+                                                        <h4>Redes Sociales</h4>
+                                                        <div class="social-list">
+                                                            <% if (locutor.redSocial.facebook) { %>
+                                                                <div class="social-item">
+                                                                    <a href="<%= locutor.redSocial.facebook %>" target="_blank">
+                                                                        <i class="fab fa-facebook-f"></i> 
+                                                                        Facebook
+                                                                    </a>
+                                                                </div>
+                                                                <% } %>
+
+                                                                    <% if (locutor.redSocial.instagram) { %>
+                                                                        <div class="social-item">
+                                                                            <a href="<%= locutor.redSocial.instagram %>" target="_blank">
+                                                                                <i class="fab fa-instagram"></i>
+                                                                                Instagram
+                                                                            </a>
+                                                                        </div>
+                                                                        <% } %>
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+
+                                                        <% if (locutor.programas && locutor.programas.length> 0) { %>
+                                                            <div class="program-list">
+                                                                <h4>Programas</h4>
+                                                                <ul>
+                                                                    <% locutor.programas.forEach(programa=> { %>
+                                                                        <li><i class="fas fa-microphone-alt"></i>
+                                                                            <%= programa.nombre %>
+                                                                        </li>
+                                                                        <% }); %>
+                                                                </ul>
+                                                            </div>
+                                                            <% } %>
+                                            </div>
+
+                                            <div class="client-actions">
+                                                <a href="/locutores/editarLocutor/<%= locutor._id %>" class="btn btn-outline">
+                                                    <i class="fas fa-edit"></i> 
+                                                    Editar
+                                                </a>
+                                                <form action="/locutores/<%= locutor._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este locutor?')">
+                                                        <i class="fas fa-trash-alt"></i> 
+                                                        Eliminar
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <% }); %>
+                                </div>
+                                <% } else { %>
+                                    <div class="empty-state">
+                                        <i class="fas fa-user-friends"></i>
+                                        <h3>No hay locutores registrados</h3>
+                                        <p>Aún no has agregado ningún locutor a tu base de datos</p>
+                                        <a href="/locutores/agregarLocutor" class="btn btn-primary" style="margin-top: 20px;">
+                                            <i class="fas fa-plus"></i> Agregar Primer Locutor
+                                        </a>
+                                    </div>
+                                    <% } %>
+        </div>
+
+        <%- include('../layout/locutores/locutorScripts') %>
+
+    </body>
+
+</html>

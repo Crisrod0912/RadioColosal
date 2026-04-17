@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<%- include('../layout/clientes/agregarClienteHead') %>
+
+    <body class="min-vh-100 d-flex flex-column">
+
+        <div class="container">
+            <h1>Agregar Nuevo Cliente</h1>
+
+            <% if (error) { %>
+                <div class="alert-error">
+                    <%= error %>
+                </div>
+                <% } %>
+
+                    <form action="/clientes/agregarCliente" method="POST">
+                        <div class="form-group">
+                            <label for="tipo">Tipo de Cliente:</label>
+                            <input type="text" id="tipo" name="tipo" required placeholder="Ej: Corporativo, Individual, etc.">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo/Razón Social:</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="text" id="telefono" name="telefono" required placeholder="Formato: +1234567890">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sitio_web">Sitio Web:</label>
+                            <input type="text" id="sitio_web" name="sitio_web" required placeholder="https://ejemplo.com">
+                        </div>
+
+                        <div class="social-media-section">
+                            <h3>Redes Sociales</h3>
+                            <div class="social-input-group">
+                                <div class="form-group">
+                                    <label for="facebook">Facebook:</label>
+                                    <input type="text" id="facebook" name="red_social[facebook]" value="<%= cliente.red_social.facebook %>" placeholder="URL de Facebook">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="x">X (Twitter):</label>
+                                    <input type="text" id="x" name="red_social[x]" value="<%= cliente.red_social.x %>" placeholder="URL de Twitter">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="instagram">Instagram:</label>
+                                    <input type="text" id="instagram" name="red_social[instagram]" value="<%= cliente.red_social.instagram %>" placeholder="URL de Instagram">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="youtube">YouTube:</label>
+                                    <input type="text" id="youtube" name="red_social[youtube]" value="<%= cliente.red_social.youtube %>" placeholder="URL de YouTube">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Crear Cliente</button>
+                            <a href="/" class="btn btn-cancel">Volver al Inicio</a>
+                        </div>
+                    </form>
+        </div>
+
+        <%- include('../layout/clientes/agregarClienteScripts') %>
+
+    </body>
+
+</html>
