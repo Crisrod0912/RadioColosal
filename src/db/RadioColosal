@@ -1,5 +1,5 @@
 -- Crear la base de datos
-use ColosalBD
+use RadioColosal
 
 -- Crear las colecciones
 db.createCollection("Locutores");
