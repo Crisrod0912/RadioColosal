@@ -25,11 +25,12 @@ This project is based on the development of a web application that enables a mor
 
 - 🎨 **Frontend**: CSS, HTML, Javascript, SCSS
 - 🧩 **Template Engine**: EJS
-- 🚀 **Backend**: Node
-- 🧱 **Frameworks**: Bootstrap, Express
+- 💻 **Backend**: Node.js
+- 🚀 **Web Framework**: Express.js
 - 🗄️ **Database**: MongoDB
 - 🔗 **ODM**: Mongoose
-- 📊 **Libraries**: ApexCharts, jQuery
+- 📊 **Libraries**: ApexCharts, JQuery
+- 🧱 **UI Framework**: Bootstrap
 - 📝 **Middleware**: Method-Override
 - 🔁 **Development Tool**: Nodemon
 - 🧪 **Version Control**: Git
