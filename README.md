@@ -76,19 +76,25 @@ To run this project locally, you'll need:
   db.createCollection("Tarifas");
   ```
 
-4. ⚙️ Install dependencies:
+4. 📁 Open the project folder in VS Code:
+
+  ```bash
+  cd RadioColosal
+  ```
+
+5. ⚙️ Install dependencies:
 
   ```bash
   npm install
   ```
 
-5. ▶️ Run the application:
+6. ▶️ Run the application:
 
   ```bash
   npm run dev
   ```
 
-6. 🌐 Access the platform:
+7. 🌐 Access the platform:
 
   ```bash
   http://localhost:3000
